@@ -33,10 +33,12 @@ def before_request_func():
     """ run before request"""
     exl_path = ['/api/v1/status/',
                 '/api/v1/unauthorized/',
-                '/api/v1/forbidden/']
+                '/api/v1/forbidden/',
+                '/api/v1/auth_session/login/']
 
     if auth is not None and auth.require_auth(request.path, exl_path) is True:
-        if auth.authorization_header(request) is None:
+        if auth.authorization_header(request) and \
+        auth.session_cookie(request):
             abort(401)
         if auth.current_user(request) is None:
             abort(403)
