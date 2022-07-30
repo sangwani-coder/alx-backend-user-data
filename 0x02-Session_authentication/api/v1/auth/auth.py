@@ -47,6 +47,7 @@ class Auth():
         Return - None
         """
         return None
+<<<<<<< HEAD
 
     def session_cookie(self, request=None):
         """ Return cookie from request"""
@@ -56,3 +57,5 @@ class Auth():
 
 
 
+=======
+>>>>>>> d5f6981c8fdd1357167365069e5135f396dd15ae

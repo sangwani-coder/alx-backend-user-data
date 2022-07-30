@@ -23,10 +23,13 @@ if AUTH_TYPE == "auth":
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+<<<<<<< HEAD
 if AUTH_TYPE == "session_auth":
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
 
+=======
+>>>>>>> d5f6981c8fdd1357167365069e5135f396dd15ae
 
 @app.before_request
 def before_request_func():
