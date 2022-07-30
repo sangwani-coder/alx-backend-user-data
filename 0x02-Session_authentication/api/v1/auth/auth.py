@@ -2,6 +2,9 @@
 """ API authentication """
 from flask import request
 from typing import List, TypeVar
+from os import getenv
+
+SESSION_NAME = getenv("SESSION_NAME")
 
 
 class Auth():
@@ -52,3 +55,4 @@ class Auth():
         """ Return cookie from request"""
         if request is None:
             return None
+        return request.cookies.get(SESSION_NAME)
