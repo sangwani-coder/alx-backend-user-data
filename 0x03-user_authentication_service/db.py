@@ -5,7 +5,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from typing import Type
 from user import Base
 from user import User
 
@@ -34,8 +33,7 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> User:
         """ add a new user
         """
-        session = self._session
         user = User(email=email, hashed_password=hashed_password)
-        session.add(user)
-        session.commit()
+        self._session.add(user)
+        self._session.commit()
         return user
