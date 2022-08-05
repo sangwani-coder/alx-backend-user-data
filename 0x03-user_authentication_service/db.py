@@ -7,6 +7,9 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from user import Base, User
 
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
+
 
 class DB:
     """DB class
@@ -37,3 +40,19 @@ class DB:
         self._session.commit()
 
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """ search for a user"""
+        if kwargs is None:
+            raise InvalidRequestError
+
+        for user in kwargs.keys():
+            if user not in User.__table__.columns.keys():
+                raise InvalidRequestError
+
+        user_query = self._session.query(User).filter_by(**kwargs).first()
+
+        if user_query is None:
+            raise NoResultFound
+
+        return user_query
