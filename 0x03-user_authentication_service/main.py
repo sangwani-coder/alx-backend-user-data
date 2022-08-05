@@ -15,7 +15,7 @@ def register_user(email: str, password: str) -> None:
         "email": email,
         "password": password
     }
-    response = requests.post(f'{BASE_URL}/users', data=data)
+    response = requests.post('{}/users'.format(BASE_URL), data=data)
 
     msg = {"email": email, "message": "user created"}
 
@@ -29,7 +29,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
         "email": email,
         "password": password
     }
-    response = requests.post(f'{BASE_URL}/sessions', data=data)
+    response = requests.post('{}/sessions'.format(BASE_URL), data=data)
 
     assert response.status_code == 401
 
@@ -40,7 +40,7 @@ def log_in(email: str, password: str) -> str:
         "email": email,
         "password": password
     }
-    response = requests.post(f'{BASE_URL}/sessions', data=data)
+    response = requests.post('{}/sessions'.format(BASE_URL), data=data)
 
     msg = {"email": email, "message": "logged in"}
 
@@ -57,7 +57,7 @@ def profile_unlogged() -> None:
     cookies = {
         "session_id": ""
     }
-    response = requests.get(f'{BASE_URL}/profile', cookies=cookies)
+    response = requests.get('{}/profile'.format(BASE_URL), cookies=cookies)
 
     assert response.status_code == 403
 
@@ -67,7 +67,7 @@ def profile_logged(session_id: str) -> None:
     cookies = {
         "session_id": session_id
     }
-    response = requests.get(f'{BASE_URL}/profile', cookies=cookies)
+    response = requests.get('{}/profile'.format(BASE_URL), cookies=cookies)
 
     msg = {"email": EMAIL}
 
@@ -80,7 +80,7 @@ def log_out(session_id: str) -> None:
     cookies = {
         "session_id": session_id
     }
-    response = requests.delete(f'{BASE_URL}/sessions', cookies=cookies)
+    response = requests.delete('{}/sessions'.format(BASE_URL), cookies=cookies)
 
     msg = {"message": "Bienvenue"}
 
@@ -93,7 +93,7 @@ def reset_password_token(email: str) -> str:
     data = {
         "email": email
     }
-    response = requests.post(f'{BASE_URL}/reset_password', data=data)
+    response = requests.post('{}/reset_password'.format(BASE_URL), data=data)
 
     assert response.status_code == 200
 
@@ -113,7 +113,7 @@ def update_password(email: str, reset_token: str, new_password: str) -> None:
         "reset_token": reset_token,
         "new_password": new_password
     }
-    response = requests.put(f'{BASE_URL}/reset_password', data=data)
+    response = requests.put('{}/reset_password'.format(BASE_URL), data=data)
 
     msg = {"email": email, "message": "Password updated"}
 
