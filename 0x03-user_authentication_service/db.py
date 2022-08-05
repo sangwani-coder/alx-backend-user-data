@@ -5,10 +5,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from user import Base, User
-
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
+
+from user import Base, User
 
 
 class DB:
@@ -46,8 +46,8 @@ class DB:
         if kwargs is None:
             raise InvalidRequestError
 
-        for user in kwargs.keys():
-            if user not in User.__table__.columns.keys():
+        for k in kwargs.keys():
+            if k not in User.__table__.columns.keys():
                 raise InvalidRequestError
 
         user_query = self._session.query(User).filter_by(**kwargs).first()
