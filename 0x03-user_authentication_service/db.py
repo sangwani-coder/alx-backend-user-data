@@ -52,10 +52,10 @@ class DB:
 
         user_query = self._session.query(User).filter_by(**kwargs).first()
 
-        if user_query is None:
+        if user_query:
+            return user_query
+        else:
             raise NoResultFound
-
-        return user_query
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """ update properties of an user """
